@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'features/login/views/login_screen.dart';
+import 'features/login/views/login_view.dart';
 
 void main() {
   runApp(const StoreApp());
@@ -11,8 +11,9 @@ class StoreApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: LoginScreen(),
+      home: const LoginView(),
     );
   }
 }

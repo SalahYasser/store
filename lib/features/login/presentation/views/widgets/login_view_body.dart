@@ -69,7 +69,14 @@ class LoginViewBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const CustomButton(),
+            CustomButton(
+              text: 'Login',
+              onPressed: () {
+                if (loginFormKey.currentState!.validate()) {
+
+                }
+              },
+            ),
             const SizedBox(height: 16),
             const OrDivider(),
             const SizedBox(height: 16),

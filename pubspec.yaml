@@ -37,6 +37,7 @@ dependencies:
 
   flutter_bloc:
   dio:
+  shared_preferences:
 
 
 dev_dependencies:

@@ -6,19 +6,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit(this.dio) : super(LoginInitial());
 
-  final Dio dio = Dio();
+  final Dio dio;
 
   Future<void> login({required String name, required String password}) async {
+
+    emit(LoginLoading());
+
     try {
       final response = await dio.post(
         'https://dummyjson.com/auth/login',
         data: {"username": name, "password": password},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
-
-      emit(LoginLoading());
 
       if (response.statusCode == 200) {
 
@@ -32,7 +33,6 @@ class LoginCubit extends Cubit<LoginState> {
 
         await pref.setString('accessToken', accessToken);
 
-        print('Saved token: $accessToken');
       } else {
 
         emit(

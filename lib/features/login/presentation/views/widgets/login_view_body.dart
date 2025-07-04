@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/custom_button.dart';
 import '../../../../../core/widgets/or_divider.dart';
+import '../../cubits/login_cubit/login_cubit.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   final loginFormKey = GlobalKey<FormState>();
@@ -29,7 +31,7 @@ class LoginViewBody extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextFormField(
-              controller: emailController,
+              controller: userNameController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
@@ -55,7 +57,7 @@ class LoginViewBody extends StatelessWidget {
                 hintText: 'Enter your password',
                 border: OutlineInputBorder(),
                 suffixIcon: IconButton(
-                  icon: Icon(CupertinoIcons.eye),
+                  icon: Icon(CupertinoIcons.eye_slash),
                   onPressed: () {},
                 ),
               ),
@@ -69,14 +71,22 @@ class LoginViewBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            CustomButton(
-              text: 'Login',
-              onPressed: () {
-                if (loginFormKey.currentState!.validate()) {
 
-                }
-              },
-            ),
+            context.watch<LoginCubit>().state is LoginLoading
+                ? Center(child: const CircularProgressIndicator())
+                : CustomButton(
+                  text: 'Login',
+                  onPressed: () {
+                    if (loginFormKey.currentState!.validate()) {
+                      final name = userNameController.text;
+                      final password = passwordController.text;
+                      context.read<LoginCubit>().login(
+                        name: name,
+                        password: password,
+                      );
+                    }
+                  },
+                ),
             const SizedBox(height: 16),
             const OrDivider(),
             const SizedBox(height: 16),

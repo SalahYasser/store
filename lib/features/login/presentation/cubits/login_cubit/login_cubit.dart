@@ -18,7 +18,12 @@ class LoginCubit extends Cubit<LoginState> {
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
 
+      emit(LoginLoading());
+
       if (response.statusCode == 200) {
+
+        emit(LoginSuccess());
+
         final data = response.data;
 
         final accessToken = data['accessToken'];
@@ -28,13 +33,21 @@ class LoginCubit extends Cubit<LoginState> {
         await pref.setString('accessToken', accessToken);
 
         print('Saved token: $accessToken');
-        print('Login successful. Access token saved.');
       } else {
-        print('Login failed with status: ${response.statusCode}');
-      }
 
-    } on Exception catch (e) {
-      print('login error: $e');
+        emit(
+          LoginFailure(
+            errMessage: 'Login failed with status: ${response.statusCode}',
+          ),
+        );
+
+      }
+    } catch (e) {
+      emit(
+        LoginFailure(
+          errMessage: 'Login failed with error: ${e.toString()}',
+        ),
+      );
     }
   }
 }

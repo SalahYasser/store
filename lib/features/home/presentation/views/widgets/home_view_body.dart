@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:store_app/features/home/presentation/views/widgets/product_item.dart';
+import 'package:store_app/features/home/presentation/views/widgets/product_items_grid_view.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -9,7 +9,18 @@ class HomeViewBody extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(children: [SizedBox(height: 20), ProductItem()]),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  ProductItemsGridView(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

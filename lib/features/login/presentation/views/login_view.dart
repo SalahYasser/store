@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_app/features/login/presentation/views/widgets/login_view_body.dart';
 
+import '../../../home/presentation/views/home_view.dart';
 import '../cubits/login_cubit/login_cubit.dart';
 
 class LoginView extends StatelessWidget {
@@ -20,9 +21,17 @@ class LoginView extends StatelessWidget {
           listener: (context, state) {
 
             if (state is LoginSuccess) {
-              ScaffoldMessenger.of(
+
+              Navigator.push(
                 context,
-              ).showSnackBar(SnackBar(content: Text('Login successful')));
+                MaterialPageRoute(
+                  builder: (context) => const HomeView(),
+                ),
+              );
+
+              // ScaffoldMessenger.of(
+              //   context,
+              // ).showSnackBar(SnackBar(content: Text('Login successful')));
 
             } else if (state is LoginFailure) {
               ScaffoldMessenger.of(

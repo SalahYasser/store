@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:store_app/features/home/data/models/product_model.dart';
 import 'package:store_app/features/home/presentation/views/widgets/product_item.dart';
 
 class ProductItemsGridView extends StatelessWidget {
-  const ProductItemsGridView({super.key});
+  const ProductItemsGridView({super.key, required this.products});
+
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +13,7 @@ class ProductItemsGridView extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 11,
+      itemCount: products.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 16,
@@ -18,13 +21,20 @@ class ProductItemsGridView extends StatelessWidget {
         mainAxisExtent: 370,
       ),
       itemBuilder: (context, index) {
+
+        final product = products[index];
+
         return ProductItem(
-          imageUrl: 'assets/images/buttel.webp',
-          title:
-          'German bütel, Proto-West Germanic budil from Proto-Germanic budilaz, from Proto-Germanic beudaną',
-          description:
-          'Middle High German (MHG; endonym: diutsch or tiutsch; New High German: Mittelhochdeutsch, shortened as Mhdt. or Mhd.) is the term for the form of High German spoken in the High Middle Ages. ',
-          price: 2,
+          imageUrl: product.imageUrl.isNotEmpty
+              ? product.imageUrl
+              : 'assets/images/buttel.webp',
+          title: product.title.isNotEmpty
+              ? product.title
+              : 'Default Title',
+          description: product.description.isNotEmpty
+              ? product.description
+              : 'Default Description',
+          price: product.price,
         );
       },
     );

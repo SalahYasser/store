@@ -11,14 +11,12 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   final Dio dio;
 
-  // List<ProductModel> products = [];
-
   Future<void> getProducts() async {
 
     emit(ProductsLoading());
 
     try {
-      final response = await dio.get('https://dummyjson.com/product');
+      final response = await dio.get('https://dummyjson.com/products');
 
       if (response.statusCode == 200) {
 
@@ -28,9 +26,12 @@ class ProductsCubit extends Cubit<ProductsState> {
                 .toList();
 
         emit(ProductsSuccess(products: products));
-
       } else {
-        throw Exception('Failed to load products');
+        emit(
+          ProductsFailure(
+            errMessage: 'error status code ${response.statusCode}',
+          ),
+        );
       }
 
     } catch (e) {

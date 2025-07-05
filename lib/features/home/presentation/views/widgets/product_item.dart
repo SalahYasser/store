@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem(
-      {super.key, required this.imageUrl, required this.title, required this.description, required this.price});
+  const ProductItem({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+    required this.price,
+  });
 
   final String imageUrl;
   final String title;
   final String description;
-  final int price;
+  final double price;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width / 2.2,
+      width: MediaQuery.of(context).size.width / 2.2,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Color.fromARGB(155, 233, 133, 191),
             spreadRadius: 2,
             blurRadius: 6,
-            offset: const Offset(0, 4),
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -33,13 +35,15 @@ class ProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(imageUrl, height: 200),
+            imageUrl.startsWith('http')
+                ? Image.network(imageUrl, height: 200, fit: BoxFit.cover)
+                : Image.asset(imageUrl, height: 200, fit: BoxFit.cover),
             const SizedBox(height: 16),
             Text(
               title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.purple,
@@ -50,12 +54,12 @@ class ProductItem extends StatelessWidget {
               description,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12, color: Colors.black),
+              style: const TextStyle(fontSize: 12, color: Colors.black),
             ),
             const SizedBox(height: 8),
             Text(
               '\$${price.toStringAsFixed(2)}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.green,
                 fontWeight: FontWeight.bold,

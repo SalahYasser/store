@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/widgets/custom_button.dart';
-import '../../../../../core/widgets/or_divider.dart';
+import 'forgot_your_password.dart';
+import 'or_divider.dart';
 import '../../cubits/login_cubit/login_cubit.dart';
+import 'dont_have_an_account.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
@@ -63,13 +64,7 @@ class LoginViewBody extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {}, // Added onPressed for tap functionality
-                child: const Text('Forgot Your Password?'),
-              ),
-            ),
+            const ForgotYourPassword(),
             const SizedBox(height: 16),
 
             context.watch<LoginCubit>().state is LoginLoading
@@ -90,25 +85,7 @@ class LoginViewBody extends StatelessWidget {
             const SizedBox(height: 16),
             const OrDivider(),
             const SizedBox(height: 16),
-            RichText(
-              // Changed from TextSpan to RichText
-              text: const TextSpan(
-                style: TextStyle(color: Colors.black), // Default text style
-                children: [
-                  TextSpan(
-                    text: 'Don\'t have an account? ',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  TextSpan(
-                    text: 'Sign up',
-                    style: TextStyle(
-                      color: Colors.deepPurple,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const DontHaveAnAccount(),
           ],
         ),
       ),

@@ -10,8 +10,8 @@ import 'dont_have_an_account.dart';
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
 
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   final loginFormKey = GlobalKey<FormState>();
 

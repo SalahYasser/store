@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:store_app/features/home/presentation/views/widgets/product_items_grid_view.dart';
 
+import '../../../data/models/product_model.dart';
+
 class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
+  const HomeViewBody({super.key, required this.products});
+
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,7 @@ class HomeViewBody extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  ProductItemsGridView(),
+                  ProductItemsGridView(products: products,)
                 ],
               ),
             ),
